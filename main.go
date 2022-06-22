@@ -14,21 +14,6 @@ type State struct {
 	i int
 }
 
-func makeLoop() func(*tview.Application,*tview.Box,*State) {
-
-return func(app *tview.Application, box *tview.Box, state *State) {
-	for {
-
-	state.i++
-
-		box.SetTitle("sdh")
-
-	time.Sleep(1 * time.Second)
-	}
-}
-
-}
-
 func main() {
 	box := tview.NewBox().SetBorder(true).SetTitle("nertz")
 	state := &State{}
