@@ -10,8 +10,10 @@ import (
 
 type State struct {
 	started bool
+	pile []int
 	key rune
 	i int
+	t bool
 }
 
 func main() {
@@ -20,27 +22,29 @@ func main() {
 
 	app := tview.NewApplication().SetRoot(box, true)
 
-
-
+	title := func() string {
+		return strconv.Itoa(state.i)
+	}
 
 	start := func() {
 		for {
-		state.i++
+			state.i++
 		app.QueueUpdateDraw(func() {
+		box.SetTitle(title())
 
-		
-		box.SetTitle("hmmm " + strconv.Itoa(state.i) + string(state.key))
 		})
 		time.Sleep(1 * time.Second)
 		}
 
 	}
-	go start()
 
 	box.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		state.key = event.Rune()
+		if !state.started { go start(); state.started = true }
 
-		box.SetTitle("hmmm " + strconv.Itoa(state.i) + string(state.key))
+
+
+		state.i++
+		box.SetTitle(title())
 
 		
 
